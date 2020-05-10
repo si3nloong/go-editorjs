@@ -2,13 +2,13 @@
 
 Server-side implementation sample for the [Editor.js](https://github.com/codex-team/editor.js). It contains data validation and converts output from Editor.js to HTML.
 
-### Installation
+## Installation
 
 ```bash
 go get github.com/si3nloong/go-editorjs
 ```
 
-### Basic usage
+## Basic usage
 
 ```go
 import (
@@ -41,7 +41,7 @@ func main() {
 }
 ```
 
-### Example of Editor.js output
+## Example of Editor.js output
 
 ```json
 {
