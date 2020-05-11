@@ -12,7 +12,7 @@ import (
 // Writer :
 type Writer interface {
 	io.StringWriter
-	io.ByteWriter
+	io.Writer
 }
 
 // Flusher :
