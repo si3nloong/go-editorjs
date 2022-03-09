@@ -59,5 +59,6 @@ func TestEditorJS(t *testing.T) {
 		require.True(t, len(doc.Find("ol").Nodes) == 1)
 		require.True(t, len(doc.Find("ul").Nodes) == 1)
 		require.True(t, len(doc.Find("li").Nodes) == 7)
+		require.True(t, len(doc.Find("table").Nodes) == 1)
 	}
 }
