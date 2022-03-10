@@ -15,6 +15,7 @@ func registerDefaultParsers(ejs *EditorJS, def DefaultParser) {
 	ejs.RegisterParser("paragraph", def.ParseParagraph)
 	ejs.RegisterParser("list", def.ParseList)
 	ejs.RegisterParser("image", def.ParseImage)
+	ejs.RegisterParser("table", def.ParseTable)
 }
 
 // ParseHeader :
@@ -64,6 +65,32 @@ func (d DefaultParser) ParseImage(b []byte, w Writer) error {
 	w.WriteString(`<img alt="no-image" src="` + img.File.Url + `"/>`)
 	if img.Caption != "" {
 		w.WriteString(`<figcaption>` + img.Caption + `</figcaption>`)
+	}
+	return nil
+}
+
+// ParseTable :
+func (d DefaultParser) ParseTable(b []byte, w Writer) error {
+	var table Table
+	w.WriteString("<table>")
+	defer w.WriteString("</table>")
+	if err := json.Unmarshal(b, &table); err != nil {
+		return err
+	}
+
+	for i, line := range table.Content {
+		w.WriteString("<tr>")
+		tag := `td`
+		if table.WithHeadings && i == 0 {
+			tag = `th`
+		}
+
+		for _, info := range line {
+			w.WriteString("<" + tag + ">" + info + "</" + tag + ">")
+
+		}
+
+		w.WriteString("</tr>")
 	}
 	return nil
 }
