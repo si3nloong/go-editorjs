@@ -38,6 +38,7 @@ func main() {
         panic(err)
     }
 
+    log.Println("HTML result =>", buf.String())
 }
 ```
 

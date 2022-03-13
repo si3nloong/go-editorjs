@@ -25,11 +25,12 @@ type ParseFunc func(b []byte, w Writer) error
 
 // EditorJS :
 type EditorJS struct {
-	atomic  sync.Mutex
+	// mutex lock, to prevent race condition
+	mu      sync.Mutex
 	parsers map[string]ParseFunc
 }
 
-// NewEditorJS :
+// NewEditorJS : create new Editorjs object
 func NewEditorJS() *EditorJS {
 	ejs := new(EditorJS)
 	ejs.parsers = make(map[string]ParseFunc)
@@ -40,12 +41,12 @@ func NewEditorJS() *EditorJS {
 
 // RegisterParser :
 func (ejs *EditorJS) RegisterParser(name string, p ParseFunc) {
-	ejs.atomic.Lock()
-	defer ejs.atomic.Unlock()
+	ejs.mu.Lock()
+	defer ejs.mu.Unlock()
 	ejs.parsers[name] = p
 }
 
-// ParseTo :
+// ParseTo : convert editorjs data to HTML
 func (ejs *EditorJS) ParseTo(b []byte, w Writer) error {
 	r := bytes.NewBuffer(b)
 	data := Data{}

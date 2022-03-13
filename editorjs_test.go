@@ -19,6 +19,11 @@ func TestEditorJS(t *testing.T) {
 	b, err = ioutil.ReadFile("./examples/data.json")
 	require.NoError(t, err)
 
+	w := new(bytes.Buffer)
+	if err := ejs.ParseTo(b, w); err != nil {
+		panic(err)
+	}
+
 	buf := new(bytes.Buffer)
 	buf.WriteString(`<html>`)
 	buf.WriteString(`<head>`)
