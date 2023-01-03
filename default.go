@@ -41,11 +41,11 @@ func (d DefaultParser) ParseList(b []byte, w Writer) error {
 		return err
 	}
 	if list.Style == "ordered" {
-		w.WriteString("<ul>")
-		defer w.WriteString("</ul>")
-	} else {
 		w.WriteString("<ol>")
 		defer w.WriteString("</ol>")
+	} else {
+		w.WriteString("<ul>")
+		defer w.WriteString("</ul>")
 	}
 	for _, itm := range list.Items {
 		w.WriteString("<li>" + itm + "</li>")
