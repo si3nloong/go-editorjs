@@ -5,7 +5,7 @@ go 1.17
 require (
 	github.com/PuerkitoBio/goquery v1.8.1
 	github.com/stretchr/testify v1.8.4
-	github.com/tidwall/gjson v1.15.0
+	github.com/tidwall/gjson v1.17.0
 )
 
 require (
